@@ -110,6 +110,17 @@ class DeviceFinder
     get "devices?limit=#{limit}"
   end
 
+  # Returns device properties (ram, screen size, etc.)
+  def get_device_properties device_id
+    get "devices/#{device_id}/properties"
+  end
+
+  # Returns device ram in megabytes
+  def get_device_ram device_id
+    data = get_device_properties(device_id)['data']
+    data.detect { |obj| obj['id'] == 118305 }['name'].gsub(/\D/,'').to_i
+  end
+
   # Find available free Android device
   def available_free_android_device limit=0
     puts 'Searching Available Free Android Device...'
@@ -119,6 +130,9 @@ class DeviceFinder
         device['locked'] == false and
         device['osType'] == 'ANDROID' and
         device['softwareVersion']['apiLevel'] > 16
+
+        ram = get_device_ram device['id']
+        next if ram < 1024
 
         puts "Found device #{device['displayName']}"
         puts
