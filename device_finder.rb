@@ -120,7 +120,7 @@ class DeviceFinder
   # Returns device ram in megabytes
   def get_device_ram device_id
     data = get_device_properties(device_id)['data']
-    data.detect { |obj| obj['id'] == 118305 }['name'].gsub(/\D/, '').to_i
+    data.detect { |obj| obj['name'].match /ram-\d/ }['name'].gsub(/\D/, '').to_i
   end
 
   # Find available free Android device
