@@ -6,13 +6,12 @@ require 'rest-client'
 require 'json'
 require 'pry'
 
-url      = 'https://cloud.testdroid.com'
+require_relative 'device_finder'
+
 username = ENV['TESTDROID_USERNAME']
 password = ENV['TESTDROID_PASSWORD']
 
-require_relative 'device_finder'
-
-device_finder = DeviceFinder.new username, password, url
+device_finder = DeviceFinder.new username, password
 
 device_finder.available_free_ios_device
 

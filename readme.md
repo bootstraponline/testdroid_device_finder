@@ -3,6 +3,11 @@
 A port of the [testdroid device finder](https://github.com/bitbar/testdroid-samples/blob/03fc043ba98235b9ea46a0ab8646f3b20dd1960e/appium/sample-scripts/python/device_finder.py)
 for Ruby.
 
+```
+export TESTDROID_USERNAME="..."
+export TESTDROID_PASSWORD="..."
+```
+
 - `python device_finder_example.py`
 - `ruby device_finder_example.rb`
 

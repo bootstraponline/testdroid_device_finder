@@ -24,6 +24,8 @@ class DeviceFinder
   # Full constructor with username and password
 
   def initialize username, password, url='https://cloud.testdroid.com'
+    fail 'Must set testdroid username and password' unless username && password
+
     @username  = username
     @password  = password
     @cloud_url = url
