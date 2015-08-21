@@ -118,7 +118,7 @@ class DeviceFinder
   # Returns device ram in megabytes
   def get_device_ram device_id
     data = get_device_properties(device_id)['data']
-    data.detect { |obj| obj['id'] == 118305 }['name'].gsub(/\D/,'').to_i
+    data.detect { |obj| obj['id'] == 118305 }['name'].gsub(/\D/, '').to_i
   end
 
   # Find available free Android device
@@ -127,6 +127,7 @@ class DeviceFinder
 
     get_devices(limit)['data'].each do |device|
       if device['creditsPrice'] == 0 and
+        device['online'] == true and
         device['locked'] == false and
         device['osType'] == 'ANDROID' and
         device['softwareVersion']['apiLevel'] > 16
@@ -148,8 +149,11 @@ class DeviceFinder
   def available_free_ios_device limit=0
     puts 'Searching Available Free iOS Device...'
 
-    for device in get_devices(limit)['data']
-      if device['creditsPrice'] == 0 and device['locked'] == false and device['osType'] == 'IOS'
+    get_devices(limit)['data'].each do |device|
+      if device['creditsPrice'] == 0 and
+        device['online'] == true and
+        device['locked'] == false and
+        device['osType'] == 'IOS'
         puts "Found device #{device['displayName']}"
         puts
         return device['displayName']
